@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>123</p>
+<img id="video-frame" src="" alt="Video Stream">
+</body>
+
+<script>
+
+const socket = new WebSocket('ws://127.0.0.1/ws/myscreen/');
+socket.onopen = (event) => {
+    console.log(event)
+}
+socket.onmessage = (event) => {
+    const frameData = JSON.parse(event.data);
+    const frameSrc = 'data:image/jpeg;base64,' + frameData.frame;
+
+    // Отобразите кадр на веб-странице (например, используйте <img> элемент)
+    document.getElementById('video-frame').src = frameSrc;
+};
+
+socket.onclose = function (event) {
+
+};
+
+</script>
+
+</html>
